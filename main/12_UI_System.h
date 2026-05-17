@@ -5,12 +5,19 @@
 // ============================================================
 //
 // ForgeUI
-// Created by Scott Forster
-// Contact: forgeui.esp32@gmail.com
+// ESP32-P4 Embedded UI Framework
+//
+// Created by:
+// Scott Forster
+//
+// Contact:
+// forgeui.esp32@gmail.com
+//
+// Official Project:
+// https://github.com/RTechAI/ForgeUI-P4
 //
 // Purpose:
-//
-// Main runtime system/settings UI builder.
+// Main runtime system and settings UI builder.
 //
 // Responsibilities:
 //
@@ -24,9 +31,9 @@
 //
 //   00_ForgeUI_Config.h
 //
-// Rules:
+// Architecture Rules:
 //
-// - UI only
+// - UI layer only
 // - no backend ownership
 // - no hardware ownership
 // - no runtime truth storage
@@ -34,7 +41,7 @@
 // Backend modules own system truth.
 // This layer renders state and sends intent only.
 //
-// Current Reactor direction:
+// Current Reactor Direction:
 //
 // System acts as:
 //
@@ -42,6 +49,15 @@
 // - hardware proof hub
 // - modular launcher
 // - shared modal entry point
+//
+// Target Hardware:
+//
+// - Waveshare ESP32-P4-WIFI6-Touch-LCD-7B
+//
+// Core Stack:
+//
+// - ESP-IDF
+// - LVGL v9
 //
 // ============================================================
 

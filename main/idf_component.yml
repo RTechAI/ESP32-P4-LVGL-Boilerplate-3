@@ -1,29 +1,27 @@
 ## ============================================================
-## ForgeUI Component Dependencies
+## ESP32-P4-WIFI6-Touch-LCD-7B Component Dependencies
 ## ============================================================
-## ESP-IDF Component Manager Manifest
+## ESP-IDF Component Manager Manifest Registry Layout
 ##
-## Target:
-##   ESP32-P4-WIFI6-Touch-LCD-7B
+## Target Hardware:
+##   Waveshare ESP32-P4-WIFI6-Touch-LCD-7B (All-in-one Dev Kit)
 ##
-## Framework:
-##   ForgeUI Framework V1
+## Core Core Framework Stack:
+##   ForgeUI Architecture Engine (Reactor 3-Page UI Edition)
 ##
-## Notes:
-## - ESP32-P4 uses onboard ESP32-C6
-##   for hosted WiFi
-## - Hosted WiFi requires:
-##     esp_wifi_remote
-##     esp_hosted
+## Coexistence Transports:
+##   Onboard ESP32-C6 Coprocessor providing Wireless via SDIO
+##   Requires esp_hosted and esp_wifi_remote stacks
 ## ============================================================
 
 dependencies:
 
+  # Production High-Performance Graphics Core Pipeline
   lvgl/lvgl:
-    version: 9.2.*
+    version: "9.2.*"
     public: true
 
-  # Hosted WiFi (ESP32-P4 -> ESP32-C6)
+  # Trans-Bus Wireless Link Abstraction Layers
   espressif/esp_wifi_remote:
     version: "1.3.*"
 

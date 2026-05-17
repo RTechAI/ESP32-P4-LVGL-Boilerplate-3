@@ -3,12 +3,19 @@
 // ============================================================
 //
 // ForgeUI
-// Created by Scott Forster
-// Contact: forgeui.esp32@gmail.com
+// ESP32-P4 Embedded UI Framework
+//
+// Created by:
+// Scott Forster
+//
+// Contact:
+// forgeui.esp32@gmail.com
+//
+// Official Project:
+// https://github.com/RTechAI/ForgeUI-P4
 //
 // Purpose:
-//
-// Dashboard / home screen builder.
+// Dashboard and home launcher UI builder.
 //
 // Responsibilities:
 //
@@ -17,27 +24,45 @@
 // - route user intent to top-level pages
 // - respect dashboard feature toggles
 //
-// Rules:
+// Architecture Rules:
 //
 // - no backend ownership
 // - no hardware ownership
-// - no system truth storage
-// - no direct hidden-tab manipulation outside HMI helpers
+// - no runtime truth storage
+// - no direct hidden-tab manipulation
+//   outside HMI navigation helpers
 //
-// Navigation ownership:
+// Navigation Ownership:
 //
-// Dashboard sends intent through:
+// Dashboard routes user intent through:
 //
 //   fg_hmi_go_system()
 //   fg_hmi_go_admin()
 //
-// Current Reactor direction:
+// Current Reactor Direction:
 //
-// Dashboard acts as the home launcher.
-// Cards/icons are primary navigation.
-// Hidden LVGL tabview remains the routing engine.
+// Dashboard acts as the primary launcher UI.
+//
+// Navigation model:
+//
+// - launcher cards
+// - icon-first interaction
+// - touch-first workflow
+//
+// Internal hidden LVGL tabview remains
+// the underlying routing engine.
+//
+// Target Hardware:
+//
+// - Waveshare ESP32-P4-WIFI6-Touch-LCD-7B
+//
+// Core Stack:
+//
+// - ESP-IDF
+// - LVGL v9
 //
 // ============================================================
+
 
 // ============================================================
 // ForgeUI Dashboard Tab

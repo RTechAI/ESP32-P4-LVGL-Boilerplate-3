@@ -5,11 +5,18 @@
 // ============================================================
 //
 // ForgeUI
-// Created by Scott Forster
-// Contact: forgeui.esp32@gmail.com
+// ESP32-P4 Embedded UI Framework
+//
+// Created by:
+// Scott Forster
+//
+// Contact:
+// forgeui.esp32@gmail.com
+//
+// Official Project:
+// https://github.com/RTechAI/ForgeUI-P4
 //
 // Purpose:
-//
 // Global slide-out runtime status drawer.
 //
 // Features:
@@ -19,14 +26,14 @@
 // - runtime status display
 // - config-controlled left/right side
 //
-// Rules:
+// Architecture Rules:
 //
-// - UI only
+// - UI layer only
 // - no backend ownership
 // - no hardware ownership
 // - no runtime truth storage
 //
-// Backend modules own truth.
+// Backend modules own runtime truth.
 // Drawer only renders display state.
 //
 // Future Direction:
@@ -37,6 +44,15 @@
 // - telemetry indicators
 // - quick settings
 // - product status badges
+//
+// Target Hardware:
+//
+// - Waveshare ESP32-P4-WIFI6-Touch-LCD-7B
+//
+// Core Stack:
+//
+// - ESP-IDF
+// - LVGL v9
 //
 // ============================================================
 

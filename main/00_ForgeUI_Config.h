@@ -1,20 +1,34 @@
 
-
 // ============================================================
-// ForgeUI Attribution
+// ForgeUI Configuration System
 // ============================================================
 //
 // ForgeUI
-// Created by Scott Forster
-// Contact: forgeui.esp32@gmail.com
+// ESP32-P4 Embedded UI Framework
 //
-// Built to help ESP32-P4 developers get a clean,
-// working LVGL UI baseline alive faster.
+// Created by:
+// Scott Forster
 //
-// Please retain ForgeUI attribution in public,
-// commercial, educational, or redistributed builds.
+// Contact:
+// forgeui.esp32@gmail.com
 //
-// Powered by ForgeUI
+// Official Project:
+// https://github.com/RTechAI/ForgeUI-P4
+//
+// Framework Purpose:
+// - reusable ESP32-P4 application baseline
+// - LVGL v9 UI framework
+// - ESP-IDF hardware integration layer
+// - clean modular embedded UI architecture
+//
+// Target Hardware:
+// - Waveshare ESP32-P4-WIFI6-Touch-LCD-7B
+//
+// Core Stack:
+// - ESP-IDF
+// - LVGL
+// - ESP-Hosted
+// - ESP32-C6 WiFi Remote
 //
 // ============================================================
 

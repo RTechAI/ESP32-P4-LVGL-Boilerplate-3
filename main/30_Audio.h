@@ -5,36 +5,52 @@
 // ============================================================
 //
 // ForgeUI
-// Created by Scott Forster
-// Contact: forgeui.esp32@gmail.com
+// ESP32-P4 Embedded UI Framework
+//
+// Created by:
+// Scott Forster
+//
+// Contact:
+// forgeui.esp32@gmail.com
+//
+// Official Project:
+// https://github.com/RTechAI/ForgeUI-P4
 //
 // Purpose:
-//
 // Shared ForgeUI audio backend.
 //
 // Responsibilities:
 //
-// - initialise speaker/audio path
+// - initialize speaker and audio path
 // - manage output volume
 // - provide simple audio test playback
 //
 // Current Features:
 //
-// - BSP audio initialisation
+// - BSP audio initialization
 // - speaker codec support
 // - runtime volume control
 // - sine-wave speaker test beep
 //
-// Rules:
+// Architecture Rules:
 //
-// - backend only
+// - backend layer only
 // - no LVGL ownership
 // - no UI styling
 // - UI sends intent only
 //
-// Controlled through:
+// Controlled Through:
 //
 //   FORGEUI_ENABLE_AUDIO
+//
+// Target Hardware:
+//
+// - Waveshare ESP32-P4-WIFI6-Touch-LCD-7B
+//
+// Core Stack:
+//
+// - ESP-IDF
+// - LVGL v9
 //
 // ============================================================
 

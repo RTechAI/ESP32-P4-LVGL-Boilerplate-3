@@ -3,18 +3,25 @@
 // ============================================================
 //
 // ForgeUI
-// Created by Scott Forster
-// Contact: forgeui.esp32@gmail.com
+// ESP32-P4 Embedded UI Framework
+//
+// Created by:
+// Scott Forster
+//
+// Contact:
+// forgeui.esp32@gmail.com
+//
+// Official Project:
+// https://github.com/RTechAI/ForgeUI-P4
 //
 // Purpose:
-//
-// Shared SD card + filesystem backend.
+// Shared SD card and filesystem backend.
 //
 // Responsibilities:
 //
-// - SD card mount/init
+// - SD card mount and initialization
 // - ForgeUI filesystem management
-// - storage reset/rebuild
+// - storage reset and rebuild
 // - SD test/read/write validation
 // - runtime storage status
 // - filesystem lifecycle ownership
@@ -25,7 +32,7 @@
 // - SD test file
 // - ForgeUI folder structure
 // - boot marker support
-// - async reset/rebuild
+// - async reset and rebuild
 // - folder listing
 // - runtime storage status helpers
 //
@@ -41,18 +48,18 @@
 // ESP32-P4 Hosted WiFi and SDMMC
 // share critical hardware paths.
 //
-// Proven stable boot order:
+// Proven Stable Boot Order:
 //
 //   WiFi first
 //   -> SD second
 //
-// Current stable baseline:
+// Current Stable Baseline:
 //
 // - Hosted WiFi alive
 // - SD alive
 // - shared operation stable
 //
-// Controlled through:
+// Controlled Through:
 //
 //   FORGEUI_ENABLE_SD
 //
@@ -64,19 +71,30 @@
 // - filesystem lifecycle
 // - storage actions
 // - folder management
-// - reset/rebuild operations
+// - reset and rebuild operations
 //
 // UI reads backend state only.
 //
 // Future Direction:
 //
-// - SQLite/light DB
+// - SQLite/light database
 // - export manager
 // - telemetry storage
 // - user database
 // - cloud sync/export
 // - encrypted storage
-// - backup/restore manager
+// - backup and restore manager
+//
+// Target Hardware:
+//
+// - Waveshare ESP32-P4-WIFI6-Touch-LCD-7B
+//
+// Core Stack:
+//
+// - ESP-IDF
+// - ESP-Hosted
+// - SDMMC
+// - LVGL v9
 //
 // ============================================================
 

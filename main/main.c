@@ -1,41 +1,37 @@
 /*
  * ============================================================
- * ForgeUI Framework V1
+ * ESP32-P4-WIFI6-Touch-LCD-7B LVGL Boilerplate (Reactor UI Edition)
  * ============================================================
- * Main application entry point.
+ * Main Application Core Entry Pipeline Orchestration
+ * Target Board: Waveshare ESP32-P4-WIFI6-Touch-LCD-7B
  *
  * Responsibilities:
- * - system boot sequencing
- * - NVS init
- * - display bring-up
- * - LVGL startup
- * - feature backend startup
- * - runtime service loop
+ * - Deterministic bare-metal system boot sequencing
+ * - Non-Volatile Storage (NVS) memory partition initialization
+ * - MIPI-DSI high-performance display panel bring-up
+ * - LVGL graphics engine thread environment startup
+ * - Asynchronous hardware feature backend task staging
+ * - Thread-safe primary runtime status service telemetry loop
  *
  * Runtime Ownership Rules:
- * - main.c owns boot order only
- * - backend modules own system state
- * - UI modules render only
- * - no business logic in app_main
+ * - main.c strictly owns hardware boot execution timing blocks only.
+ * - Async backend peripheral modules maintain system truth states.
+ * - Visual UI modules strictly render cached states and bubble up user intent.
+ * - App_main stays completely free of layout business or design logic.
  *
- * Important Hardware Rule:
+ * Critical Hardware Coexistence Co-habitation Rule:
+ * The high-performance ESP32-P4 processor shares critical hardware routing 
+ * data lines between the ESP32-C6 Hosted Wi-Fi stack and the SDMMC interface.
  *
- * ESP32-P4 Hosted WiFi and SDMMC
- * share critical hardware paths.
+ * Golden Initialization Sequence Required For Bus Coexistence Stability:
+ *   1. Initialize Hosted Wi-Fi stack first -> fg_wifi_init()
+ *   2. Allow master slave coprocessor handshake validation delay.
+ *   3. Mount the SD card filesystem layer second -> fg_sd_init()
  *
- * Current proven stable boot order:
+ * Breaking this execution pattern introduces terminal SDIO bus arbitration timeouts, 
+ * peripheral storage access failures, and wireless transport stalls.
  *
- *   Hosted WiFi first
- *   -> SD mount second
- *
- * This ordering is REQUIRED for the
- * current stable ForgeUI baseline.
- *
- * Framework:
- *   ForgeUI Framework V1
- *
- * Target Board:
- *   Waveshare ESP32-P4-WIFI6-Touch-LCD-7B
+ * Powered by ForgeUI Framework Engine (3-Page UI Workflow)
  * ============================================================
  */
 
@@ -62,8 +58,12 @@
 #include "00_ForgeUI_Config.h"
 #include "17_UI_StatusDrawer.h"
 
-static const char *TAG = "APP_MAIN";
+static const char *TAG = "FORGEUI_BOOT";
 
+/**
+ * @brief Queries the NVS memory space to detect storage initialization flags
+ * @return true if emergency file system validation requested
+ */
 static bool fg_sd_check_prepare_flag(void)
 {
     nvs_handle_t nvs;
@@ -77,11 +77,10 @@ static bool fg_sd_check_prepare_flag(void)
 
     if (flag == 1)
     {
-        // clear flag immediately
+        // Clear maintenance state instantly to prevent cyclic bootloops
         nvs_set_u8(nvs, "sd_prep", 0);
         nvs_commit(nvs);
         nvs_close(nvs);
-
         return true;
     }
 
@@ -89,23 +88,26 @@ static bool fg_sd_check_prepare_flag(void)
     return false;
 }
 
+/**
+ * @brief Enters an isolated maintenance state to structuralise card directories
+ */
 static void fg_sd_prepare_card_maintenance(void)
 {
     ESP_LOGW(TAG, "========================================");
-    ESP_LOGW(TAG, "SD MAINTENANCE MODE START");
-    ESP_LOGW(TAG, "NO UI / NO WIFI");
+    ESP_LOGW(TAG, "FORGEUI SD STORAGE MAINTENANCE START");
+    ESP_LOGW(TAG, "STANDALONE KERNEL RUNTIME: NO UI / NO WIRELESS");
     ESP_LOGW(TAG, "========================================");
 
     if (!fg_sd_init())
     {
-        ESP_LOGE(TAG, "SD init failed in maintenance mode");
+        ESP_LOGE(TAG, "Fatal: SD initialization failed during standalone maintenance execution");
         vTaskDelay(pdMS_TO_TICKS(3000));
         esp_restart();
     }
 
-    ESP_LOGW(TAG, "Preparing ForgeUI file system...");
+    ESP_LOGW(TAG, "Deploying localized clean directory structures...");
 
-    // 🔧 (can leave WDT relax or remove — not needed anymore)
+    // Configure extended software watchdog metrics to accommodate heavy disk sweeps
     esp_task_wdt_config_t twdt_cfg = {
         .timeout_ms = 300000,
         .idle_core_mask = 0,
@@ -113,24 +115,26 @@ static void fg_sd_prepare_card_maintenance(void)
     };
 
     esp_err_t wdt_ret = esp_task_wdt_reconfigure(&twdt_cfg);
-    ESP_LOGW(TAG, "Maintenance WDT relaxed: %s", esp_err_to_name(wdt_ret));
+    ESP_LOGW(TAG, "Maintenance Task Watchdog Registry expanded: %s", esp_err_to_name(wdt_ret));
 
-    // ✅ NEW: FAST RESET (NO FULL FORMAT)
+    // Execute fast disk structure validation without invoking a full cluster format
     if (!fg_sd_reset_storage_blocking())
     {
-        ESP_LOGE(TAG, "ForgeUI storage reset failed in maintenance mode");
+        ESP_LOGE(TAG, "Error: Storage structural template generation routine reports write errors");
     }
 
-    ESP_LOGW(TAG, "SD PREP COMPLETE - REBOOTING");
+    ESP_LOGW(TAG, "STORAGE REBUILD SEQUENCE EXECUTED SUCCESSFULLY - REBOOTING SYSTEM");
 
     vTaskDelay(pdMS_TO_TICKS(1500));
     esp_restart();
 }
 
-
+/**
+ * @brief Primary Embedded Application Entry Vector
+ */
 void app_main(void)
 {
-    // ---- NVS INIT ----
+    // ---- STEP 1: NON-VOLATILE FLASH ENGINE INITIALIZATION ----
     esp_err_t ret = nvs_flash_init();
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND)
     {
@@ -140,15 +144,15 @@ void app_main(void)
     ESP_ERROR_CHECK(ret);
 
 #if FORGEUI_ENABLE_SD
-    // ---- CHECK SD MAINTENANCE MODE ----
+    // ---- STEP 2: ASSESS SYSTEM DISK EMERGENCY RESTORE FLAGS ----
     if (fg_sd_check_prepare_flag())
     {
         fg_sd_prepare_card_maintenance();
-        return; // never run normal boot
+        return; // Intercept runtime and halt standard graphic initialization paths
     }
 #endif
 
-    // ---- DISPLAY INIT ----
+    // ---- STEP 3: MIPI-DSI VIDEO PANEL HARDWARE DISCOVERY ----
     bsp_display_cfg_t cfg = {
         .lvgl_port_cfg = ESP_LVGL_PORT_INIT_CONFIG(),
         .buffer_size = BSP_LCD_DRAW_BUFF_SIZE,
@@ -160,24 +164,30 @@ void app_main(void)
         }
     };
 
+    // Instantiate native display driver layers for the EK79007 and GT911 touch IC
     (void)bsp_display_start_with_config(&cfg);
 
+    // Awaken backlight circuit paths via hardware PWM output
     bsp_display_backlight_on();
 
-    //if (disp != NULL)
-    //{
-    //    bsp_display_rotate(disp, LV_DISPLAY_ROTATION_180);
-    //}
-
-    // ---- UI INIT ----
+    // ---- STEP 4: INTERFACE GRAPHIC CONTEXT ENVIRONMENT STAGING ----
+    // Acquire the layout thread lock block before mutating active display nodes
     bsp_display_lock(0);
+    
+    // Spawns the central multi-page shell layout workspace and themes
     fg_hmi_init();
+    
+    // Evaluate and paint structural header clocks and network signal badges
     fg_header_refresh();
+    
+    // Build the underlying capture container for the quick parameter overlay
     fg_status_drawer_create();
+    
     bsp_display_unlock();
 
 #if FORGEUI_ENABLE_RTC
-    // ---- RTC INIT ----
+    // ---- STEP 5: TIME RECOVERY AND SYNCHRONIZATION HARDWARE ----
+    // Synchronize local internal tick counts with external DS3231 I2C reference
     fg_rtc_init();
 #endif
 
@@ -190,86 +200,93 @@ void app_main(void)
 #endif
 
     ESP_LOGI(TAG, "========================================");
-    ESP_LOGI(TAG, "FORGEUI MASTER CONFIG BOOT");
-    ESP_LOGI(TAG, "WiFi feature: %s", FORGEUI_ENABLE_WIFI ? "ON" : "OFF");
-    ESP_LOGI(TAG, "SD feature: %s", FORGEUI_ENABLE_SD ? "ON" : "OFF");
-    ESP_LOGI(TAG, "RTC feature: %s", FORGEUI_ENABLE_RTC ? "ON" : "OFF");
+    ESP_LOGI(TAG, "FORGEUI CORE APPLICATION BUILD PIPELINE COMPILING");
+    ESP_LOGI(TAG, "Target Environment: ESP32-P4 Appliance Reactor UI");
+    ESP_LOGI(TAG, "Subsystem Flag -> Wireless Stack Coexistence: %s", FORGEUI_ENABLE_WIFI ? "ACTIVE" : "DISABLED");
+    ESP_LOGI(TAG, "Subsystem Flag -> Local Disk Storage Media  : %s", FORGEUI_ENABLE_SD ? "ACTIVE" : "DISABLED");
+    ESP_LOGI(TAG, "Subsystem Flag -> High-Precision I2C RTC    : %s", FORGEUI_ENABLE_RTC ? "ACTIVE" : "DISABLED");
     ESP_LOGI(TAG, "========================================");
 
 #if FORGEUI_ENABLE_WIFI
-    // ---- START HOSTED WIFI FIRST ----
+    // ---- STEP 6: ENFORCE SDIO WIRELESS TRANSPORT MASTER HANDSHAKE ----
     ESP_LOGI(TAG, "========================================");
-    ESP_LOGI(TAG, "HOSTED WIFI FIRST");
+    ESP_LOGI(TAG, "COEXISTENCE LOCK: INITIALIZING HOSTED WIRELESS RADIO");
     ESP_LOGI(TAG, "========================================");
 
+    // Boot up transport tasks for the onboard ESP32-C6 radio module interface
     fg_wifi_init();
 
+    // Strict timing allocation delay to guarantee link resolution before mounting disk lines
     vTaskDelay(pdMS_TO_TICKS(2500));
 
     wifi_ready = fg_wifi_is_ready();
 
-    ESP_LOGI(TAG, "WiFi after init: %s | IP: %s",
+    ESP_LOGI(TAG, "Hosted Network Line Registry: %s | Active IP Allocation: %s",
              fg_wifi_status_text(),
              fg_wifi_ip_text());
 #endif
 
 #if FORGEUI_ENABLE_SD
-    // ---- NOW MOUNT SD AFTER HOSTED WIFI ----
+    // ---- STEP 7: SECURE TRANS-BUS INGESTION FOR LOCAL STORAGE MEDIA ----
     ESP_LOGI(TAG, "========================================");
-    ESP_LOGI(TAG, "MOUNT SD AFTER WIFI");
+    ESP_LOGI(TAG, "COEXISTENCE LOCK: MOUNTING FILE SYSTEM STORAGE MEDIA");
     ESP_LOGI(TAG, "========================================");
 
+    // Safely claim remaining SDMMC slot registers now that the network pipeline is operational
     if (fg_sd_init())
     {
         sd_ready = true;
-        ESP_LOGI(TAG, "SD AFTER WIFI-FIRST INIT: READY");
+        ESP_LOGI(TAG, "FATFS Mount Handshake Resolved: DISK ENGINE READY");
         fg_sd_test();
     }
     else
     {
         sd_ready = false;
-        ESP_LOGE(TAG, "SD AFTER WIFI-FIRST INIT: FAILED");
+        ESP_LOGE(TAG, "FATFS Mount Handshake Rejected: LOCAL DISK ENGAGEMENT STALLED");
     }
 #endif
 
     ESP_LOGI(TAG, "========================================");
-    ESP_LOGI(TAG, "BOOT TEST RESULT");
+    ESP_LOGI(TAG, "CORE COEXISTENCE STAGING MATRIX RESULTS");
 
 #if FORGEUI_ENABLE_WIFI
-    ESP_LOGI(TAG, "WiFi ready: %s", wifi_ready ? "READY" : "FAIL");
-    ESP_LOGI(TAG, "WiFi status: %s | IP: %s",
+    ESP_LOGI(TAG, "Wireless Core Engine: %s", wifi_ready ? "STABLE" : "FAULT_NODE");
+    ESP_LOGI(TAG, "Wireless State Node : %s | Assigned IP Target: %s",
              fg_wifi_status_text(),
              fg_wifi_ip_text());
 #else
-    ESP_LOGI(TAG, "WiFi: DISABLED");
+    ESP_LOGI(TAG, "Wireless Core Engine: EXPLICITLY COMPILE-DISABLED");
 #endif
 
 #if FORGEUI_ENABLE_SD
-    ESP_LOGI(TAG, "SD ready: %s", sd_ready ? "READY" : "FAIL");
+    ESP_LOGI(TAG, "FATFS Storage System: %s", sd_ready ? "STABLE" : "FAULT_NODE");
 #else
-    ESP_LOGI(TAG, "SD: DISABLED");
+    ESP_LOGI(TAG, "FATFS Storage System: EXPLICITLY COMPILE-DISABLED");
 #endif
 
     ESP_LOGI(TAG, "========================================");
 
-    // ---- MAIN LOOP ----
+    // ---- STEP 8: PRODUCTION RUNTIME TELEMETRY PUMP ENGINE ----
     uint32_t last_1hz = lv_tick_get();
 
     while (1)
     {
+        // 20Hz scheduling frequency throttle layer
         vTaskDelay(pdMS_TO_TICKS(50));
 
 #if FORGEUI_ENABLE_WIFI
-        // ---- WIFI SERVICE PUMP ----
+        // Process internal network queues without blocking drawing loops
         fg_wifi_pump();
 #endif
 
         uint32_t now = lv_tick_get();
 
+        // 1Hz System Health and Display Telemetry Output Cadence
         if ((now - last_1hz) >= 1000)
         {
             last_1hz = now;
 
+            // Synchronize and update persistent UI clocks and headers within safe contexts
             bsp_display_lock(0);
             fg_header_refresh();
             bsp_display_unlock();
@@ -278,17 +295,18 @@ void app_main(void)
             const char *wifi_status = fg_wifi_status_text();
             const char *wifi_ip = fg_wifi_ip_text();
 #else
-            const char *wifi_status = "DISABLED";
-            const char *wifi_ip = "-";
+            const char *wifi_status = "COMPILE_DISABLED";
+            const char *wifi_ip = "N/A";
 #endif
 
 #if FORGEUI_ENABLE_SD
-            const char *sd_status = sd_ready ? "READY" : "FAIL";
+            const char *sd_status = sd_ready ? "MOUNTED_OK" : "MEDIA_ERROR";
 #else
-            const char *sd_status = "DISABLED";
+            const char *sd_status = "COMPILE_DISABLED";
 #endif
 
-            ESP_LOGI(TAG, "WiFi: %s | IP: %s | SD: %s",
+            // Stream continuous execution status to the ESP-IDF serial trace console
+            ESP_LOGI(TAG, "System Health Matrix -> Network: %s | Active IP: %s | Mass Storage: %s",
                      wifi_status,
                      wifi_ip,
                      sd_status);

@@ -4,38 +4,45 @@
 // ============================================================
 //
 // ForgeUI
-// Created by Scott Forster
-// Contact: forgeui.esp32@gmail.com
+// ESP32-P4 Embedded UI Framework
+//
+// Created by:
+// Scott Forster
+//
+// Contact:
+// forgeui.esp32@gmail.com
+//
+// Official Project:
+// https://github.com/RTechAI/ForgeUI-P4
 //
 // Purpose:
-//
-// Main runtime system/settings UI layer.
+// Main runtime system and settings UI layer.
 //
 // Responsibilities:
 //
 // - display runtime system status
-// - expose user/system controls
-// - host shared Reactor launch cards
+// - expose user and system controls
+// - host shared Reactor launcher cards
 // - launch shared Reactor modals
-// - provide hardware/system proof controls
+// - provide hardware/system validation controls
 //
 // Current Features:
 //
 // - display brightness
-// - audio test + volume
+// - audio test and volume control
 // - hosted WiFi manager
 // - SD card management
 // - RTC date/time control
 // - Reactor modal launch system
 //
-// Rules:
+// Architecture Rules:
 //
-// - UI only
-// - no low-level hardware init
+// - UI layer only
+// - no low-level hardware initialization
 // - no backend ownership
 // - no persistent runtime truth
 //
-// Backend modules own truth/state.
+// Backend modules own runtime truth and state.
 // This layer renders state and sends intent only.
 //
 // Feature Ownership:
@@ -68,6 +75,15 @@
 // - admin settings
 // - user/session management
 // - customer/product modules
+//
+// Target Hardware:
+//
+// - Waveshare ESP32-P4-WIFI6-Touch-LCD-7B
+//
+// Core Stack:
+//
+// - ESP-IDF
+// - LVGL v9
 //
 // ============================================================
 

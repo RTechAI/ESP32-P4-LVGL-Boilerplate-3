@@ -3,35 +3,42 @@
 // ============================================================
 //
 // ForgeUI
-// Created by Scott Forster
-// Contact: forgeui.esp32@gmail.com
+// ESP32-P4 Embedded UI Framework
+//
+// Created by:
+// Scott Forster
+//
+// Contact:
+// forgeui.esp32@gmail.com
+//
+// Official Project:
+// https://github.com/RTechAI/ForgeUI-P4
 //
 // Purpose:
-//
-// Optional protected administration area.
+// Optional protected administration UI area.
 //
 // Responsibilities:
 //
 // - build Admin page content
 // - enforce Admin gate entry point
-// - host protected settings/workflows
-// - provide future service/maintenance area
+// - host protected settings and workflows
+// - provide future service and maintenance area
 //
 // Current V1 Features:
 //
-// - optional admin gate
+// - optional Admin gate
 // - compile-time unlock support
 // - PIN keypad path
-// - placeholder admin panel
+// - placeholder Admin panel
 //
-// Rules:
+// Architecture Rules:
 //
-// - UI only
+// - UI layer only
 // - no backend ownership
 // - no hardware ownership
 // - no runtime truth storage
 //
-// Controlled through:
+// Controlled Through:
 //
 //   00_ForgeUI_Config.h
 //
@@ -39,12 +46,22 @@
 //
 // - PIN authentication
 // - RFID login
-// - role/session management
+// - role and session management
 // - diagnostics
 // - maintenance tools
 // - firmware update tools
 //
+// Target Hardware:
+//
+// - Waveshare ESP32-P4-WIFI6-Touch-LCD-7B
+//
+// Core Stack:
+//
+// - ESP-IDF
+// - LVGL v9
+//
 // ============================================================
+
 
 // ============================================================
 // Includes

@@ -5,18 +5,24 @@ extern "C" {
 #endif
 
 // ============================================================
-// ForgeUI HMI Configuration
+// ForgeUI HMI Runtime Interface
 // ============================================================
 //
 // ForgeUI
-// Created by Scott Forster
-// Contact: forgeui.esp32@gmail.com
+// ESP32-P4 Embedded UI Framework
+//
+// Created by:
+// Scott Forster
+//
+// Contact:
+// forgeui.esp32@gmail.com
+//
+// Official Project:
+// https://github.com/RTechAI/ForgeUI-P4
 //
 // Purpose:
-//
-// Small HMI-level feature flags and UI routing helpers.
-//
-// This layer is intentionally lightweight.
+// Lightweight HMI-level runtime interface for UI startup,
+// page routing, and development-only HMI behaviour flags.
 //
 // System-wide ownership belongs in:
 //
@@ -24,17 +30,17 @@ extern "C" {
 //
 // This file should only contain:
 //
-// - temporary UI toggles
-// - HMI-only behaviour flags
-// - development routing helpers
-// - lightweight UI config paths
+// - HMI entry points
+// - HMI-only development flags
+// - UI navigation helpers
+// - lightweight UI routing declarations
 //
-// Avoid:
+// This file must NOT own:
 //
-// - backend ownership
-// - hardware ownership
-// - duplicated subsystem config
-// - runtime state ownership
+// - backend state
+// - hardware configuration
+// - subsystem lifecycle
+// - duplicated global feature config
 //
 // ============================================================
 
@@ -45,9 +51,9 @@ extern "C" {
 //
 // FG_ADMIN_DEV_UNLOCK
 //
-// Development helper.
+// Development helper only.
 //
-// 1 = Admin UI unlocked/open
+// 1 = Admin UI unlocked
 // 0 = Admin protection enabled
 //
 // Current purpose:
@@ -61,8 +67,7 @@ extern "C" {
 // - PIN gate
 // - RFID login
 // - role-based access
-// - session manager
-// - timeout handling
+// - session timeout handling
 //
 // ============================================================
 
@@ -73,16 +78,16 @@ extern "C" {
 // HMI Navigation Entry Points
 // ============================================================
 //
-// These helpers route the hidden internal
-// LVGL tabview/navigation engine.
+// These helpers route the internal LVGL
+// tabview/navigation engine.
 //
 // Reactor UI uses:
 //
-// primary navigation:
-//   icon/card tap
+// Primary navigation:
+// - icon/card tap
 //
-// secondary navigation:
-//   swipe gestures
+// Secondary navigation:
+// - swipe gestures
 //
 // ============================================================
 

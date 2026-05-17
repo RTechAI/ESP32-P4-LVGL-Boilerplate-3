@@ -3,11 +3,18 @@
 // ============================================================
 //
 // ForgeUI
-// Created by Scott Forster
-// Contact: forgeui.esp32@gmail.com
+// ESP32-P4 Embedded UI Framework
+//
+// Created by:
+// Scott Forster
+//
+// Contact:
+// forgeui.esp32@gmail.com
+//
+// Official Project:
+// https://github.com/RTechAI/ForgeUI-P4
 //
 // Purpose:
-//
 // Centralized visual styling and theme layer.
 //
 // Responsibilities:
@@ -24,14 +31,14 @@
 // - Nebula Blue
 // - Reactor UI direction
 //
-// Rules:
+// Architecture Rules:
 //
 // - style-only responsibilities
 // - no backend ownership
 // - no hardware ownership
 // - no runtime state ownership
 //
-// Controlled through:
+// Controlled Through:
 //
 //   FORGEUI_STYLE_ACTIVE
 //
@@ -57,6 +64,15 @@
 // - shared LVGL style objects/cache
 // - customer branding packs
 // - appliance-style themes
+//
+// Target Hardware:
+//
+// - Waveshare ESP32-P4-WIFI6-Touch-LCD-7B
+//
+// Core Stack:
+//
+// - ESP-IDF
+// - LVGL v9
 //
 // ============================================================
 

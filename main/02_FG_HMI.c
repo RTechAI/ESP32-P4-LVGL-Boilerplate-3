@@ -3,11 +3,18 @@
 // ============================================================
 //
 // ForgeUI
-// Created by Scott Forster
-// Contact: forgeui.esp32@gmail.com
+// ESP32-P4 Embedded UI Framework
+//
+// Created by:
+// Scott Forster
+//
+// Contact:
+// forgeui.esp32@gmail.com
+//
+// Official Project:
+// https://github.com/RTechAI/ForgeUI-P4
 //
 // Purpose:
-//
 // Main LVGL HMI construction and navigation layer.
 //
 // Responsibilities:
@@ -17,17 +24,17 @@
 // - create shared header overlay
 // - create top-level UI pages
 // - dispatch page builders
-// - provide central navigation helpers
+// - provide centralized navigation helpers
 //
-// Rules:
+// Architecture Rules:
 //
 // - no backend ownership
 // - no hardware ownership
 // - no persistent runtime truth
 // - no subsystem state storage
 //
-// Backend modules own truth.
-// UI only renders state and sends intent.
+// Backend modules own runtime truth.
+// UI layers only render state and send intent.
 //
 // Current UI Pages:
 //
@@ -36,7 +43,7 @@
 // - System
 // - Admin
 //
-// Reactor Direction:
+// Reactor UI Direction:
 //
 // Reactor uses hidden internal LVGL tab routing.
 //
@@ -46,6 +53,15 @@
 //
 // Secondary navigation:
 // - swipe gestures
+//
+// Target Hardware:
+// - Waveshare ESP32-P4-WIFI6-Touch-LCD-7B
+//
+// Core Stack:
+// - ESP-IDF
+// - LVGL v9
+// - ESP-Hosted
+// - ESP32-C6 WiFi Remote
 //
 // ============================================================
 

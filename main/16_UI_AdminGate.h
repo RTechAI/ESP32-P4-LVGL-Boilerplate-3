@@ -5,12 +5,19 @@
 // ============================================================
 //
 // ForgeUI
-// Created by Scott Forster
-// Contact: forgeui.esp32@gmail.com
+// ESP32-P4 Embedded UI Framework
+//
+// Created by:
+// Scott Forster
+//
+// Contact:
+// forgeui.esp32@gmail.com
+//
+// Official Project:
+// https://github.com/RTechAI/ForgeUI-P4
 //
 // Purpose:
-//
-// Optional PIN-based admin access layer.
+// Optional PIN-based Admin access layer.
 //
 // Features:
 //
@@ -20,18 +27,18 @@
 // - relock support
 // - optional compile-time bypass
 //
-// Controlled through:
+// Controlled Through:
 //
 //   FORGEUI_ENABLE_ADMIN_GATE
 //
-// Rules:
+// Architecture Rules:
 //
-// - UI only
+// - UI layer only
 // - no backend ownership
 // - no hardware ownership
 // - no persistent runtime storage
 //
-// Current Reactor direction:
+// Current Reactor Direction:
 //
 // Admin gate acts as:
 //
@@ -42,11 +49,20 @@
 // Future Direction:
 //
 // - RFID unlock
-// - role/session system
+// - role and session system
 // - timeout support
 // - persistent PIN storage
-// - service/user roles
+// - service and user roles
 // - customer access levels
+//
+// Target Hardware:
+//
+// - Waveshare ESP32-P4-WIFI6-Touch-LCD-7B
+//
+// Core Stack:
+//
+// - ESP-IDF
+// - LVGL v9
 //
 // ============================================================
 

@@ -3,16 +3,23 @@
 // ============================================================
 //
 // ForgeUI
-// Created by Scott Forster
-// Contact: forgeui.esp32@gmail.com
+// ESP32-P4 Embedded UI Framework
+//
+// Created by:
+// Scott Forster
+//
+// Contact:
+// forgeui.esp32@gmail.com
+//
+// Official Project:
+// https://github.com/RTechAI/ForgeUI-P4
 //
 // Purpose:
-//
 // ESP32-P4 hosted WiFi backend.
 //
 // Responsibilities:
 //
-// - ESP-Hosted WiFi init
+// - ESP-Hosted WiFi initialization
 // - STA mode management
 // - WiFi scanning
 // - connection handling
@@ -33,24 +40,24 @@
 //
 // Current V1 Features:
 //
-// - hosted WiFi init
+// - hosted WiFi initialization
 // - scan
 // - connect/disconnect
-// - password auth
+// - password authentication
 // - IP acquisition
 // - forget network
 // - scan result caching
 // - runtime status abstraction
 //
-// Rules:
+// Architecture Rules:
 //
-// - backend owns WiFi truth/state
-// - UI only sends intent
+// - backend owns WiFi truth and state
+// - UI sends intent only
 // - no LVGL ownership here
 // - no UI styling here
 // - no direct UI dependencies
 //
-// Controlled through:
+// Controlled Through:
 //
 //   FORGEUI_ENABLE_WIFI
 //
@@ -76,6 +83,17 @@
 // - roaming support
 // - signal quality UI
 // - captive portal support
+//
+// Target Hardware:
+//
+// - Waveshare ESP32-P4-WIFI6-Touch-LCD-7B
+//
+// Core Stack:
+//
+// - ESP-IDF
+// - ESP-Hosted
+// - ESP WiFi Remote
+// - LVGL v9
 //
 // ============================================================
 

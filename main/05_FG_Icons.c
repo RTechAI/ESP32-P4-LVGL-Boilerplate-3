@@ -3,38 +3,54 @@
 // ============================================================
 //
 // ForgeUI
-// Created by Scott Forster
-// Contact: forgeui.esp32@gmail.com
+// ESP32-P4 Embedded UI Framework
+//
+// Created by:
+// Scott Forster
+//
+// Contact:
+// forgeui.esp32@gmail.com
+//
+// Official Project:
+// https://github.com/RTechAI/ForgeUI-P4
 //
 // Purpose:
-//
-// Central icon asset ownership layer.
+// Centralized icon asset ownership and access layer.
 //
 // Responsibilities:
 //
 // - expose shared UI icon accessors
 // - isolate LVGL image asset symbols
 // - centralize icon ownership
-// - allow future icon pack switching
+// - support future icon pack switching
 //
-// Rules:
+// Architecture Rules:
 //
 // - no direct UI logic
-// - no styling logic
-// - no runtime ownership
+// - no styling ownership
+// - no runtime state ownership
 // - no hardware ownership
 //
 // Current Reactor baseline uses:
 //
-// 48px icon assets
+// - 48px icon assets
 //
-// Future direction:
+// Future Direction:
 //
 // - multiple icon packs
 // - theme-aware icon sets
 // - runtime icon scaling
 // - dark/light variants
-// - appliance/product icon packs
+// - product-specific icon packs
+//
+// Target Hardware:
+//
+// - Waveshare ESP32-P4-WIFI6-Touch-LCD-7B
+//
+// Core Stack:
+//
+// - ESP-IDF
+// - LVGL v9
 //
 // ============================================================
 

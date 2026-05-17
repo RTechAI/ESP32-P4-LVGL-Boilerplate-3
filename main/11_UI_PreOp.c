@@ -3,27 +3,34 @@
 // ============================================================
 //
 // ForgeUI
-// Created by Scott Forster
-// Contact: forgeui.esp32@gmail.com
+// ESP32-P4 Embedded UI Framework
+//
+// Created by:
+// Scott Forster
+//
+// Contact:
+// forgeui.esp32@gmail.com
+//
+// Official Project:
+// https://github.com/RTechAI/ForgeUI-P4
 //
 // Purpose:
+// Optional workflow and application module.
 //
-// Optional workflow / application module.
-//
-// Current purpose:
+// Current Purpose:
 //
 // - placeholder workflow page
 // - future industrial workflow area
 // - ForkGuard-compatible expansion point
 //
-// Rules:
+// Architecture Rules:
 //
-// - UI only
+// - UI layer only
 // - no backend ownership
 // - no hardware ownership
 // - no persistent runtime truth
 //
-// Future direction:
+// Future Direction:
 //
 // - digital forms
 // - inspection workflows
@@ -33,6 +40,8 @@
 // - compliance capture
 // - guided workflow systems
 //
+// Module Design Goals:
+//
 // This module is intended to remain:
 //
 // - optional
@@ -40,7 +49,16 @@
 // - product configurable
 //
 // Future ownership should remain controlled
-// through ForgeUI feature/config layers.
+// through ForgeUI feature and configuration layers.
+//
+// Target Hardware:
+//
+// - Waveshare ESP32-P4-WIFI6-Touch-LCD-7B
+//
+// Core Stack:
+//
+// - ESP-IDF
+// - LVGL v9
 //
 // ============================================================
 

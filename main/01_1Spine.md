@@ -1,791 +1,191 @@
-FORGEUI P4 SPINE
+# ESP32-P4-WIFI6-Touch-LCD-7B LVGL Boilerplate Spine (Reactor UI Edition)
 
+============================================================
 WHAT IS THE SPINE?
+============================================================
 
-The Spine is the master architecture and ownership document for ForgeUI.
+The Spine is the master architecture, layout mapping, and ownership 
+document for the ESP32-P4-WIFI6-Touch-LCD-7B LVGL Boilerplate.
 
-The Spine is intended to evolve alongside ForgeUI.
+The Spine is intended to evolve alongside the ForgeUI codebase.
+It must be updated whenever:
+- Core framework architecture shifts occur
+- Directory file or module ownership changes
+- Internal runtime behavior changes
+- Peripheral hardware truths change
+- Product and appliance design layout targets adapt
+- Known-good verification baselines are updated
 
-It should be updated whenever:
+If something becomes important enough to repeatedly explain, it belongs in the Spine.
+The Spine is the single source of truth for the current known-good baseline. If code, 
+comments, behavior, or documentation drift away from the Spine, the Spine must be 
+updated or the implementation corrected. Everything eventually traces back here.
 
-- architecture changes
-- ownership changes
-- runtime behaviour changes
-- hardware truth changes
-- product direction changes
-- known-good baselines change
+Architecture Philosophy:
+Keep it simple. Keep it stable. Keep it teachable. Keep it modular. 
+Everything hardware-abstracted works flawlessly first → then build product on top.
 
-If something becomes important enough to repeatedly explain,
-it belongs in the Spine.
+============================================================
+SAVE POINT
+============================================================
 
-The Spine defines:
-
-- hardware truth
-- runtime truth
-- module ownership
-- subsystem responsibilities
-- UI direction
-- product direction
-- known-good boot order
-- proven hardware states
-- configuration ownership
-- Reactor architecture
-- future development rules
-
-The Spine exists to prevent:
-
-- project drift
-- duplicated ownership
-- hidden runtime behaviour
-- undocumented fixes
-- random architectural changes
-- forgotten hardware rules
-- unstable feature expansion
-
-The Spine is the single source of truth for the current known-good ForgeUI baseline.
-
-If code, comments, behaviour, or documentation drift away from the Spine,
-the Spine must be updated or the implementation corrected.
-
-Everything in ForgeUI should eventually trace back to Spine ownership.
-
-ForgeUI Spine philosophy:
-
-keep it simple
-keep it stable
-keep it teachable
-keep it modular
-keep it alive on real hardware first
-
-Everything works
-→ then build product on top
-
-
-SAVE POINT:
 FORGEUI_P4_598__THEME_SELECTOR_AND_UI_MODULE_TOGGLES_OK__2026-05-15
 
-Board Model:
-WAVESHARE ESP32-P4-WIFI6-TOUCH-LCD-7B
+============================================================
+PROJECT IDENTITY & SPECIFICATION
+============================================================
 
-Project:
-ForgeUI
+Project Name:
+ESP32-P4-WIFI6-Touch-LCD-7B LVGL Boilerplate
 
-Branch:
-ForgeUI-Reactor
+Target Hardware Board:
+Waveshare ESP32-P4-WIFI6-Touch-LCD-7B (7-inch MIPI DSI, 800x480 Layout)
 
-CREATOR / ATTRIBUTION
+Active Production Branch:
+ForgeUI-Reactor (Modular Appliance Launcher & Modal UI)
 
-ForgeUI
-Created by Scott Forster
+Created by:
+Scott Forster
 
 Contact:
 forgeui.esp32@gmail.com
 
-Powered by ForgeUI
+Powered by the ForgeUI Architectural Framework. (ForkGuard retired for this baseline).
 
-ForkGuard retired for this baseline
+============================================================
+CURRENT MISSION & PRODUCT DIRECTION
+============================================================
 
-PURPOSE
+Build a fully alive, hardware-proven, high-performance ESP32-P4 baseline, then evolve the Reactor branch into a decoupled, modular, appliance-style launcher UI suitable for commercial product deployment.
 
-This document defines the current ForgeUI P4 hardware baseline, ownership rules, module structure, runtime responsibilities, Reactor launcher direction, icon ownership model, Reactor modal architecture, UI feature-toggle ownership, and modular appliance-style UI direction.
+The UI must be consistent, clean, teachable, sellable, easy to modify, stable on hardware, and not over-engineered. This is no longer a one-off demo screen.
 
-It is the single source of truth for:
+Current Next Milestone Mission:
+RTC dashboard tile cleanup and improved manual Date/Time configuration setting entry workflows.
 
-module layout
-responsibility boundaries
-runtime ownership
-hardware proof status
-ESP32-P4 + ESP32-C6 hosted WiFi strategy
-SD card integration strategy
-future product handover direction
-master feature config ownership
-backend ownership strategy
-visual style ownership strategy
-product UI consistency rules
-admin gate ownership
-status drawer ownership
-Reactor launcher ownership
-Reactor modal ownership
-hidden routing ownership
-icon pipeline ownership
-touch-driven launcher ownership
-shared overlay ownership
-shared keyboard ownership
-theme selector ownership
-optional UI module ownership
+============================================================
+HARD ARCHITECTURAL RULES
+============================================================
 
-CURRENT MISSION
+1. NO DEMOS in runtime path. No hidden factory dependencies or bloatware.
+2. NO GUESSING. Isolate and test raw hardware bounds directly.
+3. NO HIDDEN DUPLICATE DRIVERS. Eliminate file system and component pollution.
+4. NO RANDOM PER-WIDGET STYLING. Enforce strict centralized stylesheets.
+5. NO SUBSYSTEM OWNS ANOTHER SUBSYSTEM. Maintain strict decoupling boundaries.
+6. MAIN.C OWNS BOOT ORDER ONLY. Orchestrates startup sequences and driver loops.
+7. BACKENDS OWN SYSTEM TRUTH. UI only renders cached state and bubbles up user intent.
 
-Build a fully alive, hardware-proven ForgeUI baseline, then evolve Reactor into a modular appliance-style launcher UI suitable for product deployment.
-
-Current next mission:
-RTC tile cleanup and improved date/time setting workflow.
-
-RULES
-
-No demos in runtime path
-No guessing
-No hidden duplicate drivers
-No random per-widget styling
-No subsystem owning another subsystem
-Everything must remain simple enough for someone else to follow later
-
-GOAL
-
-Everything works
-→ then build product on top
-
-PRODUCT DIRECTION
-
-ForgeUI is now being shaped as a reusable embedded UI product baseline.
-
-The UI must be:
-
-consistent
-clean
-teachable
-sellable
-easy to modify
-stable on hardware
-not over-engineered
-
-This is no longer a one-off demo screen.
-
+============================================================
 BRANCH STATUS
+============================================================
 
 main branch:
-
-stable traditional ForgeUI baseline
+Stable, traditional multi-page static ForgeUI baseline project.
 
 ForgeUI-Reactor branch:
+Active touch-first launcher/appliance UI production branch. Implements hidden tabview 
+routing context, launcher-card layouts, shared modal layers, modular icon pipelines, 
+and an overlay/page split architecture.
 
-active launcher/appliance UI branch
-hidden tabview routing
-touch-first navigation
-launcher-card direction
-shared modal direction
-shared overlay direction
-modular icon system
-future overlay/page split architecture
+============================================================
+PROVEN WORKING HARDWARE & REACTOR FEATURES
+============================================================
 
-CURRENT REACTOR COMMIT DIRECTION
+- Display Pipeline (EK79007 MIPI DSI): OK (Native BSP panel orientation verified)
+- Touch Interface (GT911 I2C): OK (Multi-touch operational, Tab swipe tuning ADDED)
+- Graphics Engine (LVGL v9.2.2): OK (PSRAM optimization verified)
+- Navigation Model: Hidden Tabview Routing Engine (Top selection bar hidden)
+- Screen Transitions: Instant workspace switching via `LV_ANIM_OFF`
+- Network Stack (ESP32-C6 Hosted WiFi): OK (Scan / Connect / Password / Disconnect / Forget)
+- Storage Filesystem (SD Card): OK (256GB SDHC, 4-bit, 40MHz R/W pass)
+- Audio Engine (ES8311 Codec): OK (Speaker out, beep testing, volume sliders operational)
+- Persistent Header: Live clock tracking, header toggle, and header clock path alive
+- Security Gate: Admin PIN keypad barrier system layout and dev switches active
+- System Launcher Hub: Modular matrix icon hub alive and proven
+- Reactor Modal Framework: Stable async modal generation and deletion engine
+- Integrated Modals: Brightness, Sound, Wi-Fi, and Storage Modals verified
+- Modular Configuration: Theme selector engine, Dashboard tile toggles, and tile gating OK
 
-Reactor launcher UI, icon pipeline, shared modal architecture, and modular config ownership proven on hardware.
-
-PLATFORM TRUTH — ESP32-P4 WIFI
-
-ESP32-P4 has NO native WiFi radio.
-
-Actual WiFi path:
-
-ESP32-P4 host
-→ onboard ESP32-C6 radio
-→ ESP-Hosted
-→ SDIO transport
-→ WiFi Remote
-→ ESP-IDF WiFi API
-
-WiFi API appears normal in code.
-Radio is remote.
-
-PROVEN WORKING HARDWARE
-
-Display: OK
-Touch: OK
-LVGL v9 UI: OK
-Header clock: OK
-NVS: OK
-DS3231 RTC: OK
-Power-off time retention: OK
-BSP shared I2C bus: OK
-Audio: OK
-Volume slider: OK
-Tab UI structure: OK
-Hidden tab routing: OK
-Launcher routing helpers: OK
-Screen rotation: OK
-Native BSP panel orientation: OK
-Startup 180° flip: FIXED
-Hosted WiFi (ESP32-C6 over SDIO): OK
-WiFi scan/connect/disconnect: OK
-WiFi password entry: OK
-WiFi keyboard overlay: OK
-WiFi-first / SD-second workaround: OK
-SD mount after Hosted WiFi: OK
-Safe SD rebuild/reset: OK
-Keyboard overlay: OK
-Feature modular config system: OK
-Theme selector cleanup: OK
-Header enable toggle: OK
-Dashboard tile enable toggle: OK
-Dashboard tile gating: OK
-Nebula Blue theme pass: STARTED
-Reactor branch: ALIVE
-System launcher hub: ALIVE
-Dashboard launcher card routing: ALIVE
-Admin gate dev switch: OK
-Admin PIN keypad path: PROVEN
-Status drawer V1: ALIVE
-Status drawer side config: PROVEN
-Icon pipeline: PROVEN
-Touch-driven launcher model: PROVEN
-Reactor modal framework: PROVEN
-Brightness Reactor modal: OK
-Sound Reactor modal: OK
-WiFi Reactor modal: OK
-Storage Reactor modal: OK
-Shared Reactor overlay: OK
-Shared modal close path: OK
-Async modal deletion: OK
-LVGL stale object protection: OK
-Modal exit reset bug: FIXED
-Tab swipe tuning: ADDED
-
+============================================================
 DISPLAY ROTATION TRUTH
+============================================================
 
-The Waveshare ESP32-P4-WIFI6-Touch-LCD-7B native display orientation is already correct.
+The Waveshare ESP32-P4-WIFI6-Touch-LCD-7B native display orientation is already correct out of the box.
 
-REMOVE:
+CRITICAL REMOVAL RULE: Do NOT call `bsp_display_rotate(disp, LV_DISPLAY_ROTATION_180);`.
+Forcing this rotation layer causes an ugly visible startup screen flip, white frame transition lags, and unnecessary redraw processing overhead. ForgeUI runs strictly in native BSP panel alignment.
 
-bsp_display_rotate(disp, LV_DISPLAY_ROTATION_180);
+============================================================
+PLATFORM TRUTH: WIRELESS COEXISTENCE & SD RULES
+============================================================
 
-This forced rotation caused:
+The ESP32-P4 processor contains NO native on-chip RF Wi-Fi radio. Wireless functionality is achieved using the onboard ESP32-C6 chip acting as a coprocessor over a high-speed 4-bit, 40MHz SDIO transport layer handled by `esp_hosted`.
 
-visible startup flip
-white/FPS rotate transition
-unnecessary redraw overhead
+CRITICAL COEXISTENCE INIT ORDER:
+To avoid SDIO bus timeouts, resource conflicts, and driver panics, initialization must follow this sequence exactly:
+1. `fg_wifi_init()`
+2. `fg_sd_init()`
+3. `fg_sd_test()`
 
-ForgeUI now runs in native BSP orientation.
+Reason: `esp_hosted` must claim the SDMMC slot handshake first. The SD card filesystem safely attaches to the shared bus afterward. Breaking this order causes hard storage initialization timeouts and wireless instability.
 
-HOSTED WIFI STATUS
+WIFI ASYNC RULE: Never run heavy blocking logic inside wireless event handlers. The event must trip a simple flag, and the main system task handles processing inside `fg_wifi_pump()`.
 
-Status:
-PROVEN WORKING
-
-Proven:
-
-ESP-Hosted SDIO transport
-ESP32-C6 detected
-Transport active
-MAC read
-STA started
-Scan pipeline working
-SSIDs returned
-RSSI returned
-UI WiFi status alive
-Scan/select/password/connect/IP/forget working
-Shared keyboard overlay working
-Stable with current boot order
-
-Proof logs:
-
-transport: Identified slave [esp32c6]
-H_API: Transport active
-FG_WIFI: STA started
-FG_WIFI: WiFi hosted init READY
-FG_WIFI: SCAN DONE EVENT FIRED
-
-SD CARD STATUS
-
-Status:
-PROVEN WORKING
-
-Proven:
-
-SDMMC mount
-FAT filesystem
-File create
-File read
-256GB SDHC
-4-bit mode
-40 MHz
-Read/write test pass
-Reactor storage modal working
-Live rebuild working
-List ForgeUI working
-
-Proof logs:
-
-FG_SD: SD mounted OK
-FG_SD: SD TEST PASS
-
-CRITICAL WIFI + SD RULE
-
-Correct boot order:
-
-fg_wifi_init()
-fg_sd_init()
-fg_sd_test()
-
-Do NOT mount SD before WiFi.
-
-Reason:
-
-ESP-Hosted claims SDMMC first.
-SD safely attaches afterward.
-
-Golden proof:
-
-sdmmc_host already initialized, skipping init flow
-
-Breaking this causes:
-
-SD failure
-timeouts
-conflicts
-unstable WiFi
-
+============================================================
 SDMMC BUS STRATEGY
+============================================================
 
-50_SDMMC_BUS.* exists.
+Files `50_SDMMC_BUS.h` and `50_SDMMC_BUS.c` exist within the component directory structure.
+Status: UNUSED / PLACEHOLDER LAYER. Do NOT build or declare a custom bus layer yet. The working system relies strictly on the WiFi-first, SD-second initialization block workaround.
 
-Status:
-UNUSED / PLACEHOLDER
-
-Do NOT build a custom bus layer yet.
-
-Working system relies on:
-
-WiFi first
-SD second
-
-WIFI ARCHITECTURE RULE
-
-Never run heavy logic inside event handlers.
-
-Correct:
-
-event → flag
-main loop → fg_wifi_pump()
-
-This rule is locked.
-
+============================================================
 ESP-IDF BASELINE
-
-Version:
-5.5.4
-
-Do NOT drift casually.
-
-Required:
-
-ESP-Hosted enabled
-WiFi Remote enabled
-PSRAM XIP FROM PSRAM = OFF
-
-PROJECT STRUCTURE
-
-main/
-
-00_ForgeUI_Config.h
-01_1Spine.md
-
-01_FG_HMI.h
-02_FG_HMI.c
-
-05_FG_Icons.h
-05_FG_Icons.c
-
-10_UI_Dashboard.h
-10_UI_Dashboard.c
-
-11_UI_PreOp.h
-11_UI_PreOp.c
-
-12_UI_System.h
-12_UI_System.c
-
-13_UI_Admin.h
-13_UI_Admin.c
-
-14_UI_Header.h
-14_UI_Header.c
-
-15_UI_Keyboard.h
-15_UI_Keyboard.c
-
-16_UI_AdminGate.h
-16_UI_AdminGate.c
-
-16_UI_Style.h
-16_UI_Style.c
-
-17_UI_StatusDrawer.h
-17_UI_StatusDrawer.c
-
-17_UI_ReactorModal.h
-17_UI_ReactorModal.c
-
-20_RTC.h
-20_RTC.c
-
-30_Audio.h
-30_Audio.c
-
-30_WIFI.h
-30_WIFI.c
-
-40_SD.h
-40_SD.c
-
-50_SDMMC_BUS.h
-50_SDMMC_BUS.c
-
-main.c
-CMakeLists.txt
-idf_component.yml
-
-REACTOR UI STATUS
-
-Status:
-ALIVE / STABILIZED
-
-Reactor is now more than a colour theme.
-
-It changes:
-
-navigation model
-interaction flow
-launch model
-UI hierarchy
-module routing direction
-icon ownership direction
-page ownership direction
-overlay ownership direction
-modal ownership direction
-
-CURRENT REACTOR BEHAVIOUR
-
-Top tab bar hidden.
-LVGL tabview remains alive internally.
-Swipe remains available as secondary navigation.
-Dashboard acts as launcher.
-Dashboard launcher cards can route to pages.
-System page is now a modular icon hub.
-System hub now launches shared Reactor modals.
-Admin can launch from Dashboard or System hub.
-System legacy page remains parked but preserved.
-
-IMPORTANT TRUTH
-
-Do NOT delete the internal tabview.
-
-The tabview is now the hidden routing engine.
-
-REACTOR NAVIGATION RULE
-
-Primary navigation:
-
-tap icons/cards
-
-Secondary navigation:
-
-swipe between hidden tabview pages
-
-Do NOT rely on swipe as primary navigation.
-
-REASON
-
-Swipe can feel stiff on the 7-inch panel.
-Icon tap feels cleaner for appliance/product UI.
-Hidden tab animation can look messy if animated.
-
-CURRENT CONFIG IMPROVEMENT
-
-Theme selector has been simplified for normal users.
-
-Current direction:
-
-theme selection first
-instructions first
-internal IDs second
-
-Reason:
-
-public projects must optimize for readability and usability, not only developer architecture purity.
-
-CURRENT CONFIG TOGGLES
-
-FORGEUI_ENABLE_HEADER
-FORGEUI_ENABLE_DASHBOARD_TILES
-
-Current behaviour:
-
-1 = enabled
-0 = disabled
-
-Dashboard launcher cards are now gated correctly through:
-
-FORGEUI_ENABLE_DASHBOARD_TILES
-
-Header visibility is now gated correctly through:
-
-FORGEUI_ENABLE_HEADER
-
-CURRENT DASHBOARD DIRECTION
-
-Dashboard is no longer just a placeholder page.
-
-Dashboard now acts as:
-
-launcher
-home screen
-future module router
-future status entry point
-
-Current dashboard direction:
-
-large touch launcher cards
-minimal text
-icon-first interaction
-clean appliance-style UX
-future infotainment-style flow
-
-CURRENT SYSTEM HUB
-
-Brightness
-Sound
-WiFi
-Storage
-Time
-Admin
-
-SYSTEM PAGE DIRECTION
-
-Old direction:
-
-single giant settings page
-
-New Reactor direction:
-
-System becomes launcher hub only.
-
-Features now launch through:
-
-shared Reactor modals
-
-Future:
-
-dedicated pages/modules
-
-CURRENT REACTOR MODAL SYSTEM
-
-Status:
-PROVEN WORKING
-
-Current modal architecture:
-
-shared overlay
-shared modal builder
-shared close path
-shared styling ownership
-shared keyboard ownership
-shared runtime cleanup
-
-Current modal-backed modules:
-
-Brightness
-Sound
-WiFi
-Storage
-
-MODAL STABILITY RULES
-
-ALL timer-driven refresh paths must validate LVGL objects before access.
-
-Correct:
-
-lv_obj_is_valid(...)
-
-Reason:
-
-modal deletion can occur while timers still exist.
-
-This rule is LOCKED.
-
-MODAL CLOSE RULE
-
-Shared modals must use async delete where possible.
-
-Correct:
-
-lv_obj_delete_async(...)
-
-Reason:
-
-prevents deleting active objects during LVGL event traversal.
-
-SYSTEM TIMER SAFETY RULE
-
-Timer-driven UI refresh code must NEVER assume UI objects still exist.
-
-ALL refresh paths must guard:
-
-NULL pointers
-stale LVGL objects
-
-Reason:
-
-prevents green-screen/reset crash during modal close.
-
-ICON PIPELINE STATUS
-
-Status:
-PROVEN WORKING
-
-Current ownership:
-
-05_FG_Icons.h
-05_FG_Icons.c
-
-Current live icon assets:
-
-fg_icon_system_48px
-fg_icon_admin_48px
-fg_icon_brightness_48px
-fg_icon_sound_48px
-fg_icon_wifi_48px
-fg_icon_sd_card_48px
-fg_icon_time_48px
-
-ICON SIZE DECISION
-
-Current Reactor icon size:
-
-48px
-
-Reason:
-
-64px proved the icon pipeline, but 48px looks better on the 7-inch Reactor launcher.
-
-VISUAL STYLE SYSTEM
-
-Status:
-PROVEN WORKING
-
-Current compile-time styles:
-
-FORGEUI_STYLE_ATLAS_LIGHT
-FORGEUI_STYLE_NEBULA_BLUE
-FORGEUI_STYLE_REACTOR
-
-Current active Reactor direction:
-
-FORGEUI_STYLE_REACTOR
-
-STYLE SYSTEM RULES
-
-Visual styles are controlled centrally.
-
-Rules:
-
-No random per-widget styling
-No duplicated hardcoded colors
-No hidden style ownership in tabs
-No separate tab-specific color systems
-No runtime skin editor yet
-
-All visual identity must flow through:
-
-16_UI_Style.c
-16_UI_Style.h
-
-RUNTIME OWNERSHIP
-
-main.c
-→ boot + loop only
-
-UI
-→ display only
-
-Backends:
-
-RTC
-→ time
-
-Audio
-→ sound
-
-WiFi
-→ network
-
-SD
-→ storage
-
-MASTER CONFIG
-→ subsystem existence
-
-STYLE SYSTEM
-→ visual ownership
-
-ADMIN GATE
-→ admin access UI state
-
-STATUS DRAWER
-→ render-only status view
-
-REACTOR MODAL SYSTEM
-→ overlay + modal ownership
-
-RUNTIME ORDER
-
-NVS
-Display
-Backlight
-UI
-Header
-Status Drawer
-RTC
-
-WiFi FIRST
-SD SECOND
-
-Main loop:
-
-fg_wifi_pump()
-
-CURRENT REACTOR STATE
-
-Dashboard launcher alive
-System launcher hub alive
-Shared modal architecture alive
-Shared keyboard overlay alive
-Admin routing alive
-Hidden tab engine alive
-Modular icon pipeline alive
-Branch isolated safely
-Build stable
-Flash stable
-Touch-first navigation alive
-
-KNOWN LIMITATIONS
-
-Format requires power cycle
-Reset rebuilds folders not empty
-Boot marker fails post-reset
-SDMMC bus not abstracted
-Status drawer values static
-Status drawer no animation yet
-Swipe still slightly stiff on panel
-Launcher modules not split into dedicated pages yet
-System legacy page still parked internally
-Time Reactor modal not built yet
-
-These are accepted truths.
-
-FINAL LOCK
-
-WiFi first
-SD second
-
-Reset = delete + rebuild
-Format = destructive + power cycle
-
-Tabview stays alive internally
-Launcher navigation is primary
-Swipe is secondary
-System becomes module launcher hub
-Shared Reactor modals now stable
-Icons remain centralized
-Reactor branch now official
-ForgeUI evolving toward appliance/product-grade touch launcher UI
+============================================================
+
+Version: ESP-IDF v5.5.4 (Strict version matching enforced)
+Required Core Defs:
+- ESP-Hosted enabled
+- WiFi Remote enabled
+- PSRAM XIP FROM PSRAM = OFF (Must remain disabled to prevent linker timing crashes)
+
+============================================================
+CURRENT ACTIVE PROJECT STRUCTURE
+============================================================
+
+The main/ component directory must match this structure cleanly:
+
+├── main.c                  # Board boot sequence and driver lifecycle management
+├── 00_ForgeUI_Config.h     # Global feature compile flags, pin maps, and style IDs
+├── 01_1Spine.md            # This master architecture specification document
+├── 01_FG_HMI.h             # HMI abstraction definitions layer
+├── 02_FG_HMI.c             # Base canvas allocation and display task port mapping
+├── 05_FG_Icons.h / .c      # Custom modular icon structures and image pipelines
+├── 10_UI_Dashboard.h / .c  # Screen 1: Primary appliance launcher card hub
+├── 11_UI_PreOp.h / .c      # Logo splash, boot loading steps, and pre-op sequences
+├── 12_UI_System.h / .c     # Screen 2: System preference arrays & icon matrix launcher
+├── 13_UI_Admin.h / .c      # Screen 3: Privileged setup options canvas
+├── 14_UI_Header.h / .c     # Top persistent tracking bar and ticker rendering
+├── 15_UI_Keyboard.h / .c    # Global system input overlay keyboard template
+├── 16_UI_AdminGate.h / .c  # Security PIN keypad lock barrier layout
+├── 16_UI_Style.h / .c      # Centralized theme control definitions (Nebula Blue active)
+├── 17_UI_StatusDrawer.h / .c # Drop-down quick status adjustments panel
+├── 17_UI_ReactorModal.h / .c # Decoupled shared overlay and async modal builder engine
+├── 20_RTC.h / .c           # Hardware clock sync tasks and time conversions
+├── 30_Audio.h / .c         # Codec volume settings and feedback tone generation
+├── 30_WIFI.h / .c          # esp_hosted wireless scanner loop and event handlers
+├── 40_SD.h / .c            # Storage media mounts and file structure mapping
+├── 50_SDMMC_BUS.h / .c     # Unused placeholder layer (Do not invoke)
+├── CMakeLists.txt          # Main component build directives
+└── idf_component.yml       # Espressif registry dependency bindings
+
+============================================================
+REACTOR UI NAVIGATION & MODAL ARCHITECTURE
+============================================================
+
+The Reactor branch changes the navigation model from traditional scrolling tabs into a touch-first, icon-driven appliance interface.
+
+1. Hidden Tabview Routing Engine: Do NOT delete the internal LVGL tabview. It is utilized as the background routing engine. The top tab bar is completely hidden.
+2. Interaction Flows: Users tap large high-visibility launcher cards on the Dashboard to route to specific screens, or interact with a modular icon matrix on the System screen.
+3. Page Nav Helpers: Explicit route changes utilize `fg_hmi_go_dashboard()`, `fg_hmi_go_system()`, or `fg_hmi_go_admin()` with `LV_ANIM_OFF` to bypass sluggish side-scrolling visual redraws on the 7-inch panel.
+4. Appliance Style Hubs: Features like Brightness, Sound, Wi-Fi, and Storage are no longer crammed onto a single messy settings page. They launch instantly inside clean, modern, isolated asynchronous popups managed by the `ReactorModal` framework.
+5. Primary vs Secondary Navigation: Touch-driven icon/card selection acts as primary navigation. Horizontal swiping across the hidden tabview remains active as a secondary navigation model. Do not rely on swipe tracking as the primary path as it can introduce physical drag resistance on the panel canvas.

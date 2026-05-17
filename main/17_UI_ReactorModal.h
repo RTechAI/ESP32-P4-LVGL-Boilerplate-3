@@ -5,12 +5,19 @@
 // ============================================================
 //
 // ForgeUI
-// Created by Scott Forster
-// Contact: forgeui.esp32@gmail.com
+// ESP32-P4 Embedded UI Framework
+//
+// Created by:
+// Scott Forster
+//
+// Contact:
+// forgeui.esp32@gmail.com
+//
+// Official Project:
+// https://github.com/RTechAI/ForgeUI-P4
 //
 // Purpose:
-//
-// Shared Reactor modal / overlay system.
+// Shared Reactor modal and overlay system.
 //
 // Responsibilities:
 //
@@ -26,14 +33,14 @@
 // - shared close callback support
 // - Reactor-compatible modal styling
 //
-// Rules:
+// Architecture Rules:
 //
-// - UI only
+// - UI layer only
 // - no backend ownership
 // - no hardware ownership
 // - no runtime truth storage
 //
-// Current ownership:
+// Current Ownership:
 //
 // Feature modules own:
 //
@@ -46,6 +53,15 @@
 // - overlay lifecycle
 // - modal container
 // - close callback handling
+//
+// Target Hardware:
+//
+// - Waveshare ESP32-P4-WIFI6-Touch-LCD-7B
+//
+// Core Stack:
+//
+// - ESP-IDF
+// - LVGL v9
 //
 // ============================================================
 

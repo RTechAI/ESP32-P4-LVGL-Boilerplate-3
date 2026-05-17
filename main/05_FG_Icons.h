@@ -1,47 +1,64 @@
 #pragma once
 
 // ============================================================
-// ForgeUI Icon Pipeline
+// ForgeUI Icon Interface
 // ============================================================
 //
 // ForgeUI
-// Created by Scott Forster
-// Contact: forgeui.esp32@gmail.com
+// ESP32-P4 Embedded UI Framework
+//
+// Created by:
+// Scott Forster
+//
+// Contact:
+// forgeui.esp32@gmail.com
+//
+// Official Project:
+// https://github.com/RTechAI/ForgeUI-P4
 //
 // Purpose:
+// Shared icon accessor interface for ForgeUI UI modules.
 //
-// Shared icon accessor interface.
-//
-// UI modules should access icons through
-// this layer rather than directly touching
+// UI layers should access icons through this
+// interface rather than directly referencing
 // LVGL image asset symbols.
 //
-// This allows:
+// This architecture allows:
 //
 // - centralized icon ownership
 // - future icon pack switching
 // - theme-aware icon systems
 // - cleaner module separation
+// - reusable UI asset pipelines
 //
-// Rules:
+// Architecture Rules:
 //
 // - no UI logic
-// - no styling logic
+// - no styling ownership
 // - no backend ownership
 // - no runtime state ownership
 //
-// Current Reactor baseline:
+// Current Reactor Baseline:
 //
-// - shared centralized icons
-// - 48px icon pipeline
+// - centralized icon access layer
+// - shared 48px icon pipeline
 // - touch-first launcher support
 //
-// Future direction:
+// Future Direction:
 //
 // - dark/light icon packs
 // - runtime icon scaling
 // - appliance-specific icon sets
 // - customer branding packs
+//
+// Target Hardware:
+//
+// - Waveshare ESP32-P4-WIFI6-Touch-LCD-7B
+//
+// Core Stack:
+//
+// - ESP-IDF
+// - LVGL v9
 //
 // ============================================================
 

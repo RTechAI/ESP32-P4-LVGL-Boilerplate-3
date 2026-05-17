@@ -1,5 +1,8 @@
-FORGEUI SOURCE AVAILABLE LICENSE
+============================================================
+ForgeUI Source Available License (FSAL) v1.0
 Version 1.0
+Target Ecosystem: ESP32-P4-WIFI6-Touch-LCD-7B / LVGL v9 / ESP-IDF
+============================================================
 
 Copyright (c) 2026 Scott Forster / ForgeUI
 Some rights reserved.
@@ -12,11 +15,11 @@ OVERVIEW
 ForgeUI is a custom ESP32-P4 application framework and UI
 baseline developed for embedded systems using:
 
-- ESP-IDF
-- LVGL
-- ESP-Hosted WiFi
-- Waveshare ESP32-P4 board support ecosystems
-- related managed components
+- ESP-IDF (v5.5.4 Optimized)
+- LVGL (v9.2.2 High-Performance Graphics Engine)
+- ESP-Hosted WiFi (ESP32-C6 Coprocessor Architecture)
+- Waveshare ESP32-P4-WIFI6-Touch-LCD-7B board support ecosystems
+- Related managed hardware abstraction components
 
 ForgeUI provides a reusable embedded application structure,
 runtime architecture, and hardware-proven UI baseline.
@@ -103,9 +106,9 @@ ForgeUI does NOT claim ownership of:
 - ESP-IDF
 - Waveshare BSP components
 - Espressif managed components
-- upstream drivers
-- upstream examples
-- third-party libraries
+- Upstream drivers
+- Upstream examples
+- Third-party libraries
 
 All required upstream copyright notices,
 SPDX headers, and license texts must remain
@@ -121,8 +124,8 @@ the project application layer, including:
 
 - main/
 - ForgeUI runtime modules
-- ForgeUI configuration system
-- ForgeUI UI architecture
+- ForgeUI configuration system (00_ForgeUI_Config.h)
+- ForgeUI UI architecture (Dashboard, System, and Admin pages)
 - ForgeUI themes and layouts
 - ForgeUI system integration logic
 
@@ -131,8 +134,8 @@ dependency territory:
 
 - managed_components/
 - ESP-IDF internal build system
-- vendor BSP implementations
-- upstream LVGL internals
+- Vendor BSP implementations
+- Upstream LVGL internals
 
 
 ============================================================
@@ -143,9 +146,9 @@ ForgeUI is provided "AS IS",
 without warranty of any kind,
 express or implied, including but not limited to:
 
-- merchantability
-- fitness for a particular purpose
-- noninfringement
+- Merchantability
+- Fitness for a particular purpose
+- Noninfringement
 
 In no event shall the authors or copyright holders
 be liable for any claim, damages, or other liability
@@ -159,13 +162,14 @@ ATTRIBUTION
 ForgeUI was originally developed from legitimate
 ESP32-P4 bring-up and evaluation workflows using:
 
-- official ESP-IDF
+- Official ESP-IDF
 - LVGL
-- vendor BSP ecosystems
-- managed Espressif components
+- Vendor BSP ecosystems
+- Managed Espressif components
 
 ForgeUI has since evolved into a standalone
 application architecture and runtime framework.
+
 
 ============================================================
 BUILD ATTRIBUTION
@@ -185,7 +189,7 @@ Recommended attribution examples:
 Author attribution:
 
 Scott Forster
-email forgeui.esp32@gmail.com
+Email: forgeui.esp32@gmail.com
 ForgeUI Project
 
 Attribution may appear in:

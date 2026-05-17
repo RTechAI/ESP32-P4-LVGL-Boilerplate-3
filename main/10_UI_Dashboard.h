@@ -5,12 +5,19 @@
 // ============================================================
 //
 // ForgeUI
-// Created by Scott Forster
-// Contact: forgeui.esp32@gmail.com
+// ESP32-P4 Embedded UI Framework
+//
+// Created by:
+// Scott Forster
+//
+// Contact:
+// forgeui.esp32@gmail.com
+//
+// Official Project:
+// https://github.com/RTechAI/ForgeUI-P4
 //
 // Purpose:
-//
-// Dashboard / home screen UI builder.
+// Dashboard and home launcher UI builder.
 //
 // Responsibilities:
 //
@@ -19,14 +26,14 @@
 // - provide top-level UI entry points
 // - route user navigation intent
 //
-// Rules:
+// Architecture Rules:
 //
-// - UI only
+// - UI layer only
 // - no backend ownership
 // - no hardware ownership
 // - no runtime truth storage
 //
-// Current Reactor direction:
+// Current Reactor Direction:
 //
 // Dashboard acts as:
 //
@@ -34,14 +41,23 @@
 // - launcher hub
 // - appliance-style entry point
 //
-// Primary navigation:
+// Primary Navigation:
 //
 // - launcher cards
 // - icon taps
 //
-// Secondary navigation:
+// Secondary Navigation:
 //
-// - hidden tabview swipe routing
+// - hidden LVGL tabview swipe routing
+//
+// Target Hardware:
+//
+// - Waveshare ESP32-P4-WIFI6-Touch-LCD-7B
+//
+// Core Stack:
+//
+// - ESP-IDF
+// - LVGL v9
 //
 // ============================================================
 

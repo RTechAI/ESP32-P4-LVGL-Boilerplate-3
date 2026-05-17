@@ -3,12 +3,19 @@
 // ============================================================
 //
 // ForgeUI
-// Created by Scott Forster
-// Contact: forgeui.esp32@gmail.com
+// ESP32-P4 Embedded UI Framework
+//
+// Created by:
+// Scott Forster
+//
+// Contact:
+// forgeui.esp32@gmail.com
+//
+// Official Project:
+// https://github.com/RTechAI/ForgeUI-P4
 //
 // Purpose:
-//
-// Global header/status overlay layer.
+// Global header and status overlay layer.
 //
 // Responsibilities:
 //
@@ -23,18 +30,18 @@
 // - persistent foreground overlay
 // - Reactor-compatible header layer
 //
-// Rules:
+// Architecture Rules:
 //
-// - overlay only
+// - overlay layer only
 // - no backend ownership
 // - no hardware ownership
 // - no low-level display ownership
 // - lightweight refresh path only
 //
-// Backend modules own truth.
+// Backend modules own runtime truth.
 // Header only renders display state.
 //
-// Current ownership:
+// Current Ownership:
 //
 // - RTC formatting comes from 20_RTC.c
 // - visual styling comes from 16_UI_Style.c
@@ -48,6 +55,15 @@
 // - notifications
 // - telemetry indicators
 // - product/system badges
+//
+// Target Hardware:
+//
+// - Waveshare ESP32-P4-WIFI6-Touch-LCD-7B
+//
+// Core Stack:
+//
+// - ESP-IDF
+// - LVGL v9
 //
 // ============================================================
 

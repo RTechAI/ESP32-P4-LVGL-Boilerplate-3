@@ -5,12 +5,19 @@
 // ============================================================
 //
 // ForgeUI
-// Created by Scott Forster
-// Contact: forgeui.esp32@gmail.com
+// ESP32-P4 Embedded UI Framework
+//
+// Created by:
+// Scott Forster
+//
+// Contact:
+// forgeui.esp32@gmail.com
+//
+// Official Project:
+// https://github.com/RTechAI/ForgeUI-P4
 //
 // Purpose:
-//
-// Shared runtime RTC/timekeeping layer.
+// Shared runtime RTC and timekeeping layer.
 //
 // Responsibilities:
 //
@@ -20,7 +27,7 @@
 // - NVS fallback persistence
 // - date/time formatting helpers
 //
-// Controlled through:
+// Controlled Through:
 //
 //   FORGEUI_RTC_BACKEND
 //
@@ -30,12 +37,21 @@
 // - DS3231 = persistent hardware source
 // - NVS = fallback persistence
 //
-// Rules:
+// Architecture Rules:
 //
-// - UI never owns time truth
+// - UI never owns runtime time truth
 // - runtime reads use ESP system time
 // - DS3231 is used at boot restore and set/apply
-// - BSP owns I2C bus init
+// - BSP owns I2C bus initialization
+//
+// Target Hardware:
+//
+// - Waveshare ESP32-P4-WIFI6-Touch-LCD-7B
+//
+// Core Stack:
+//
+// - ESP-IDF
+// - LVGL v9
 //
 // ============================================================
 

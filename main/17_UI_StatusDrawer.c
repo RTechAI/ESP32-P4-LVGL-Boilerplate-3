@@ -3,11 +3,18 @@
 // ============================================================
 //
 // ForgeUI
-// Created by Scott Forster
-// Contact: forgeui.esp32@gmail.com
+// ESP32-P4 Embedded UI Framework
+//
+// Created by:
+// Scott Forster
+//
+// Contact:
+// forgeui.esp32@gmail.com
+//
+// Official Project:
+// https://github.com/RTechAI/ForgeUI-P4
 //
 // Purpose:
-//
 // Global slide-out runtime status drawer.
 //
 // Responsibilities:
@@ -25,21 +32,21 @@
 // - config-controlled left/right side
 // - top-layer overlay ownership
 //
-// Rules:
+// Architecture Rules:
 //
 // - UI-only overlay
 // - no backend ownership
 // - no hardware ownership
 // - lightweight render layer only
 //
-// Backend modules own truth/state.
+// Backend modules own runtime truth and state.
 // Drawer only renders display state.
 //
-// Controlled through:
+// Controlled Through:
 //
 //   00_ForgeUI_Config.h
 //
-// Current Reactor direction:
+// Current Reactor Direction:
 //
 // Status Drawer acts as:
 //
@@ -56,6 +63,15 @@
 // - mini quick-settings
 // - network indicators
 // - customer branding/status modules
+//
+// Target Hardware:
+//
+// - Waveshare ESP32-P4-WIFI6-Touch-LCD-7B
+//
+// Core Stack:
+//
+// - ESP-IDF
+// - LVGL v9
 //
 // ============================================================
 
