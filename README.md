@@ -1,28 +1,24 @@
-# ESP32-P4-WIFI6-Touch-LCD-7B LVGL Boilerplate (3-Page UI Edition)
+# ESP32-P4 LVGL Boilerplate — ForgeUI
 
-[![ESP-IDF Version](https://shields.io)](https://github.com)
-[![LVGL Version](https://shields.io)](https://github.com)
-[![License](https://shields.io)](LICENSE)
+This repository is a public ESP-IDF and LVGL 9 boilerplate/reference for the **Waveshare ESP32-P4-WIFI6-Touch-LCD-7B**, including an ESP32-P4, MIPI DSI display, and GT911 touch baseline.
 
-A production-ready, zero-bloat, open-source-friendly HMI starter template and architecture explicitly built for the **Waveshare ESP32-P4-WIFI6-Touch-LCD-7B** development board (featuring the high-performance dual-core RISC-V ESP32-P4 MCU and a 7-inch MIPI DSI display). 
+The public `v1.0.0` release documents a ForgeUI-based three-page embedded UI baseline and its associated hardware integration.
 
-This version delivers a pristine, multi-file **3-Page Embedded UI Framework** (Dashboard, System, and Admin views) optimized for real-world products. Completely free of subscription fees, platform lock-ins, or bloated factory demo spaghetti.
+ForgeUI is developed by [RTechAI](https://github.com/RTechAI). This repository remains a public technical reference while current ForgeUI development has expanded separately into ForgeUI Studio.
 
-**Powered by the ForgeUI Architectural Framework.**  
 **Created by:** Scott Forster  
 **Contact:** forgeui.esp32@gmail.com  
-**Current Release:** `FORGEUI_P4_591__RC1_PUBLIC_RELEASE_PREP__README_STARTED__2026-05-10`
 
 ---
 
 ## 🚀 Overview & Philosophy
-ForgeUI is a product-oriented embedded UI framework focused on stable hardware bring-up, clean architecture, reusable LVGL patterns, and deep hardware-level integration with the ESP32-P4 pipeline. 
+ForgeUI is a product-oriented embedded UI framework focused on hardware bring-up, clean architecture, reusable LVGL patterns, and deep hardware-level integration with the ESP32-P4 pipeline.
 
 Unlike manufacturer demos that pack tightly coupled smart-home widgets into an unmodifiable file structure, ForgeUI delivers an **"Empty Can" Architecture**. It takes care of 100% of the painful peripheral bring-up, leaving you with a clean, stable, and teachable canvas ready for immediate application development.
 
 ---
 
-## ✨ Proven RC1 Core Features
+## ✨ Documented v1.0.0 Baseline Features
 - **3-Page Core Workflow:** Clean architectural boundaries separating the `Dashboard` (Home screen/Launcher workspace), `System Page`, and `Admin Panel`.
 - **Integrated Control Modals:** Drop-down persistent Status Drawer layout, custom System Overlay Keyboard, and an Access-Restricted Admin Gate passcode pad.
 - **Wireless Coexistence Staging:** Vetted routines for scanning, connecting, and disconnecting networks smoothly without memory leakage.
@@ -31,8 +27,8 @@ Unlike manufacturer demos that pack tightly coupled smart-home widgets into an u
 
 ---
 
-## 🛠️ Proven Hardware Integration
-This boilerplate is fully verified, calibrated, and rock-stable on the following hardware layout:
+## 🛠️ Tested Hardware Integration
+The documented public baseline was tested with the following hardware layout:
 - **Primary Development Kit:** Waveshare ESP32-P4-WIFI6-Touch-LCD-7B
 - **Core Microcontroller:** ESP32-P4 (High-performance dual-core RISC-V MCU)
 - **Wireless Coprocessor:** Onboard ESP32-C6 (Providing Hosted Wi-Fi 6 via SDIO transport)
@@ -44,7 +40,7 @@ This boilerplate is fully verified, calibrated, and rock-stable on the following
 ---
 
 ## 📦 Software Stack & Component Matrix
-Avoid version incompatibility compilation errors. This baseline relies on a fully vetted, known-good component layout tree:
+Avoid version incompatibility compilation errors. The documented public baseline uses the following component layout tree:
 - **Framework:** ESP-IDF v5.5.4
 - **Graphics Engine:** LVGL v9.2.2
 - **Wireless Infrastructure:** `esp_hosted` v2.9.7 & `esp_wifi_remote` v1.3.0
@@ -61,6 +57,7 @@ Avoid version incompatibility compilation errors. This baseline relies on a full
 - **OS:** Windows / Linux / macOS
 - **IDE:** VS Code with the official ESP-IDF Extension installed.
 - **Toolchain:** ESP-IDF v5.5.4
+- **Environment:** Install and initialize the ESP-IDF v5.5.4 environment before running `idf.py`.
 
 ### 2. Compilation Commands
 Open your terminal inside the project root directory and execute the following sequence:
@@ -69,9 +66,6 @@ Open your terminal inside the project root directory and execute the following s
 # Set the compilation target to the P4 chip
 idf.py set-target esp32p4
 
-# Clear out old build cache and generate clean CMake files
-idf.py fullclean
-
 # Compile the project
 idf.py build
 
@@ -79,53 +73,55 @@ idf.py build
 idf.py flash monitor
 ```
 
+If automatic port detection does not work, supply your serial port with `idf.py -p <port> flash monitor`. Run `idf.py fullclean` before `idf.py build` only when a clean reconfiguration is required.
+
 ---
 
 ## 📐 Core Architectural Design Rules
 To keep your product stable under heavy async workloads, the framework strictly enforces decoupling between the visual layout and system truth:
 
-1. **`main.c` is the Orchestrator:** It solely owns board startup, peripheral bring-up, internal LVGL initialization, backend task staging, and the core runtime loop.
+1. **`main/main.c` is the Orchestrator:** It solely owns board startup, peripheral bring-up, internal LVGL initialization, backend task staging, and the core runtime loop.
 2. **UI Does NOT Own System Truth:** Backends own truth. The UI layer only renders state changes and bubbles clean user-intent notifications back down to system processes.
 3. **Safe LVGL Threading Context:** Visual changes must execute strictly from an LVGL-safe context. Backend/event tasks must *never* directly mutate a UI object from an unsafe async thread.
-4. **Compile-Time Configuration:** All structural feature ownership flags reside cleanly inside `00_ForgeUI_Config.h`.
+4. **Compile-Time Configuration:** All structural feature ownership flags reside in `main/00_ForgeUI_Config.h`.
 
 ---
 
 ## 📁 Project Structure (3-Page UI Layout)
 
 ```text
-├── main.c                  # Core board bring-up, HW orchestration, and runtime loops
-├── 00_ForgeUI_Config.h     # Global feature config, compile-time switches, and pin maps
-│
+├── CMakeLists.txt                 # ESP-IDF project entry point
+├── dependencies.lock              # Locked managed-component versions
 ├── main/
-│   ├── 01_FG_HMI.c / .h        # Main multi-page LVGL runtime shell allocation
-│   │
-│   ├── 10_UI_Dashboard.c       # Screen 1: Primary control dashboard & launcher canvas
-│   ├── 11_UI_PreOp.c           # Logo splash, boot loading steps, and pre-op sequences
-│   ├── 12_UI_System.c          # Screen 2: System parameters & setting tiles hub
-│   ├── 13_UI_Admin.c           # Screen 3: Privileged setup options panel
-│   ├── 14_UI_Header.c          # Persistent status bar & ticker rendering
-│   ├── 15_UI_Keyboard.c        # Global system input overlay keyboard template
-│   ├── 16_UI_StatusDrawer.c    # Drop-down quick status adjustments panel
-│   ├── 17_UI_AdminGate.c       # Security PIN keypad lock barrier layout
-│   │
-│   ├── 20_RTC.c                # System time synchronization handlers
-│   ├── 21_RTC_DS3231.c         # Hardware I2C DS3231 driver layer
-│   │
-│   ├── 30_Audio.c              # ES8311 volume management and notification audio
-│   ├── 30_WIFI.c               # esp_hosted wireless scanner loops and event handlers
-│   │
-│   ├── 40_SD.c                 # SD card detection, storage mounting, and directory building
-│   │
-│   ├── 50_SDMMC_BUS.c / .h     # Custom SDMMC bus abstractions (Placeholder)
-│   ├── CMakeLists.txt          # Main component build directives
-│   └── idf_component.yml       # Component registry dependency bindings
+│   ├── main.c                     # Board bring-up, orchestration, and runtime loop
+│   ├── 00_ForgeUI_Config.h        # Feature switches and configuration
+│   ├── 02_FG_HMI.c / .h           # Multi-page LVGL runtime shell
+│   ├── 05_FG_Icons.c / .h         # Icon registration
+│   ├── 10_UI_Dashboard.c / .h     # Dashboard view
+│   ├── 11_UI_PreOp.c / .h         # Pre-operation view
+│   ├── 12_UI_System.c / .h        # System view
+│   ├── 13_UI_Admin.c / .h         # Admin view
+│   ├── 14_UI_Header.c / .h        # Persistent status header
+│   ├── 15_UI_Keyboard.c / .h      # Keyboard overlay
+│   ├── 16_UI_AdminGate.c / .h     # Admin gate and UI style
+│   ├── 17_UI_StatusDrawer.c / .h  # Status drawer and reactor modal
+│   ├── 20_RTC.c / .h              # RTC integration
+│   ├── 30_Audio.c / .h            # Audio integration
+│   ├── 30_WIFI.c / .h             # ESP-Hosted Wi-Fi integration
+│   ├── 40_SD.c / .h               # SD-card integration
+│   ├── assets/icons/              # Compiled LVGL icon assets
+│   ├── CMakeLists.txt             # Main component registration
+│   └── idf_component.yml          # Component manifest
+├── components/bsp_extra/          # Auxiliary board-support component
+├── docs/setup/                    # Setup screenshots and architecture notes
+├── LICENSE                         # ForgeUI Source Available License
+└── THIRD_PARTY_LICENSES.md         # Third-party notices
 ```
 
 ---
 
 ## ⚙️ Feature Configuration System
-Scale firmware size up or down instantly via compile-time flags inside `00_ForgeUI_Config.h`. Toggle features between `0` (disabled) and `1` (enabled) to optimize builds or isolate hardware bugs:
+Scale firmware size up or down via compile-time flags inside `main/00_ForgeUI_Config.h`. Toggle features between `0` (disabled) and `1` (enabled) to optimize builds or isolate hardware bugs:
 
 ```c
 #define FORGEUI_ENABLE_WIFI   1
@@ -139,11 +135,8 @@ Scale firmware size up or down instantly via compile-time flags inside `00_Forge
 ## 📡 Subsystem Implementation Profiles
 
 ### Display & Video Pipeline
-- **Drivers:** Stable hardware-accelerated LVGL rendering via `esp_lcd_ek79007`.
-- **Orientation:** Display is mapped to a 180-degree rotation using the BSP layer:
-  ```c
-  bsp_display_rotate(disp, LV_DISPLAY_ROTATION_180);
-  ```
+- **Drivers:** The documented baseline uses the Waveshare BSP and `esp_lcd_ek79007` for LVGL rendering.
+- **Orientation:** The current source does not apply an explicit `bsp_display_rotate(...)` override; use the BSP-configured panel orientation for this board baseline.
 
 ### Real-Time Clock (RTC) Architecture
 - The external **DS3231** provides non-volatile power-off time retention (Address: `0x68`, Port: `I2C_NUM_0`, SDA: `GPIO 7`, SCL: `GPIO 8`).
@@ -181,13 +174,25 @@ The project workspace includes step-by-step menuconfig reference screenshots und
 
 ---
 
-## 🗺️ Roadmap
-- [ ] Implement multiple runtime global color themes (Nebula Blue, Carbon, Atlas Light).
-- [ ] Add polished async page navigation slide/fade transitions.
-- [ ] Incorporate secure cryptographic Admin authentication algorithms.
-- [ ] Integrate a SPIFFS mini-database engine for storing system preferences.
-- [ ] Expand the modular icon pipeline into a fully reusable custom widget library.
-- [ ] Complete cross-platform port baseline targeting the ESP32-S3.
+## Roadmap
+
+Current ForgeUI development continues through the broader [ForgeUI](https://forgeui.co.nz) ecosystem and [ForgeUI Studio](https://studio.forgeui.co.nz).
+
+This repository remains focused on its public ESP32-P4/LVGL boilerplate and hardware-reference role.
+
+## Current ForgeUI Studio
+
+ForgeUI development has expanded into [ForgeUI](https://forgeui.co.nz) and [ForgeUI Hosted Studio](https://studio.forgeui.co.nz).
+
+ForgeUI Hosted Studio is available for public registration.
+
+This repository remains the public ESP32-P4/LVGL boilerplate and technical reference.
+
+## About ForgeUI
+
+[ForgeUI](https://forgeui.co.nz) is developed by [RTechAI](https://github.com/RTechAI), the GitHub home for ForgeUI public repositories and reference work.
+
+ForgeUI Studio is the current visual embedded UI/HMI development environment, and ForgeUI Hosted Studio is its hosted application.
 
 ---
 
@@ -204,16 +209,3 @@ The core ForgeUI codebase, application layout files, configuration headers, and 
 
 ## ⚠️ Disclaimer
 This framework is provided "AS IS" without warranty of any kind. Developers must thoroughly validate electrical safety, thermal layout profiles, and overall hardware loop stability before deploying this boilerplate into a commercial environment.
-
-## Keywords
-
-ESP32-P4 UI Framework  
-ESP32-P4 LVGL Example  
-ESP32-P4 Touchscreen UI  
-ESP32-P4 GUI Framework  
-LVGL ESP-IDF Starter Project  
-Waveshare ESP32-P4 Example  
-ESP32-P4 Boilerplate  
-ESP32-P4 Dashboard UI  
-LVGL Touchscreen Framework  
-ESP32-P4 Embedded GUI
